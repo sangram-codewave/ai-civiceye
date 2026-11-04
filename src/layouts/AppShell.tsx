@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { ChartColumn, LayoutDashboard, List, LogOut, Map, Menu, Plus, X } from 'lucide-react'
 import { useState } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ServiceBanner } from '@/components/ServiceBanner'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
@@ -20,7 +20,16 @@ const adminNav = [
   { to: '/admin/analytics', label: 'Analytics', icon: ChartColumn, end: false },
 ]
 
+function isItemActive(to: string, pathname: string, end: boolean) {
+  if (to === '/app/complaints') {
+    return pathname === '/app/complaints' || /^\/app\/complaints\/(?!new$).+/.test(pathname)
+  }
+  if (end) return pathname === to
+  return pathname === to || pathname.startsWith(`${to}/`)
+}
+
 function NavItems({ items, onNavigate }: { items: typeof citizenNav; onNavigate?: () => void }) {
+  const { pathname } = useLocation()
   return (
     <nav className="space-y-1">
       {items.map((item) => (
@@ -29,12 +38,10 @@ function NavItems({ items, onNavigate }: { items: typeof citizenNav; onNavigate?
           to={item.to}
           end={item.end}
           onClick={onNavigate}
-          className={({ isActive }) =>
-            cn(
-              'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10',
-              isActive && 'bg-white/15 text-white',
-            )
-          }
+          className={cn(
+            'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10',
+            isItemActive(item.to, pathname, item.end) && 'bg-white/15 text-white',
+          )}
         >
           <item.icon className="h-4 w-4" aria-hidden="true" />
           {item.label}
