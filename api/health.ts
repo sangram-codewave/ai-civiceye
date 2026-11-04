@@ -1,6 +1,6 @@
-import { isGeminiConfigured, isSupabaseConfigured, missingServerEnv } from '../server/env'
-import { assertMethod, wrap } from '../server/http'
-import { getAdmin } from '../server/supabase'
+import { isGeminiConfigured, isSupabaseConfigured, missingServerEnv } from '../server/env.js'
+import { assertMethod, wrap } from '../server/http.js'
+import { getAdmin } from '../server/supabase.js'
 
 export default wrap('health', async (req, res) => {
   assertMethod(req, ['GET'])

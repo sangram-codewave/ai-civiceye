@@ -6,8 +6,8 @@ import type {
   DuplicateFlag,
   ResolutionAiResult,
   ResolutionVerification,
-} from '../shared/types'
-import { HttpError } from './http'
+} from '../shared/types.js'
+import { HttpError } from './http.js'
 
 type Relation<T> = T | T[] | null
 

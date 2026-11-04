@@ -1,10 +1,10 @@
-import { departmentForCategory, resolveDepartmentName, severityLabel } from '../shared/constants'
-import type { AiAnalysis, Complaint, ComplaintDetailResponse, ListResponse, OfficerOption } from '../shared/types'
-import type { AuthUser } from './auth'
-import { detectDuplicates } from './duplicates'
-import { HttpError, qstring, type Req } from './http'
-import { decodeImage, uploadComplaintImage } from './images'
-import { LIST_SELECT, mapComplaint, mapFlag, mapUpdate, mapVerification, raiseDbError, type ComplaintRow } from './mappers'
+import { departmentForCategory, resolveDepartmentName, severityLabel } from '../shared/constants.js'
+import type { AiAnalysis, Complaint, ComplaintDetailResponse, ListResponse, OfficerOption } from '../shared/types.js'
+import type { AuthUser } from './auth.js'
+import { detectDuplicates } from './duplicates.js'
+import { HttpError, qstring, type Req } from './http.js'
+import { decodeImage, uploadComplaintImage } from './images.js'
+import { LIST_SELECT, mapComplaint, mapFlag, mapUpdate, mapVerification, raiseDbError, type ComplaintRow } from './mappers.js'
 import {
   assignSchema,
   complaintQuerySchema,
@@ -12,8 +12,8 @@ import {
   parseBody,
   patchComplaintSchema,
   statusSchemaBody,
-} from './schemas'
-import { getAdmin } from './supabase'
+} from './schemas.js'
+import { getAdmin } from './supabase.js'
 
 function numberParam(value: string | undefined, fallback: number): number {
   if (!value) return fallback

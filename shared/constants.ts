@@ -1,4 +1,4 @@
-import type { Category, Severity } from './types'
+import type { Category, Severity } from './types.js'
 
 export const CATEGORY_VALUES = [
   'pothole',

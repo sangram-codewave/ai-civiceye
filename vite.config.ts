@@ -8,12 +8,17 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url))
 // Inline only the public Supabase values. Do not set envPrefix to SUPABASE_:
 // that would also ship SUPABASE_SERVICE_ROLE_KEY in the client bundle.
 export default defineConfig(({ mode }) => {
+  // loadEnv(mode, root, '') copies process.env even when no .env file exists.
+  // Read the two public values from process.env first so a Vercel build, which
+  // has no .env file, still inlines them. Never define the service role or Gemini key.
   const fileEnv = loadEnv(mode, rootDir, '')
+  const supabaseUrl = process.env.SUPABASE_URL || fileEnv.SUPABASE_URL || ''
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || fileEnv.SUPABASE_ANON_KEY || ''
   return {
     plugins: [react(), tailwindcss()],
     define: {
-      'import.meta.env.SUPABASE_URL': JSON.stringify(fileEnv.SUPABASE_URL ?? ''),
-      'import.meta.env.SUPABASE_ANON_KEY': JSON.stringify(fileEnv.SUPABASE_ANON_KEY ?? ''),
+      'import.meta.env.SUPABASE_URL': JSON.stringify(supabaseUrl),
+      'import.meta.env.SUPABASE_ANON_KEY': JSON.stringify(supabaseAnonKey),
     },
     resolve: {
       alias: {

@@ -1,7 +1,7 @@
-import { requireUser } from '../../server/auth'
-import { getComplaint, patchComplaint } from '../../server/complaints'
-import { assertMethod, qstring, readBody, wrap } from '../../server/http'
-import { parseId } from '../../server/schemas'
+import { requireUser } from '../../server/auth.js'
+import { getComplaint, patchComplaint } from '../../server/complaints.js'
+import { assertMethod, qstring, readBody, wrap } from '../../server/http.js'
+import { parseId } from '../../server/schemas.js'
 
 export default wrap('complaint', async (req, res) => {
   assertMethod(req, ['GET', 'PATCH'])

@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import { getServerEnv, isSupabaseConfigured } from './env'
-import { HttpError } from './http'
+import { getServerEnv, isSupabaseConfigured } from './env.js'
+import { HttpError } from './http.js'
 
 let client: SupabaseClient | null = null
 

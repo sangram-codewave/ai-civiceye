@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import { DEMO_ACCOUNTS, DEPARTMENTS } from '../shared/constants'
-import { demoComplaints } from '../shared/demoData'
-import type { ComplaintUpdate, Role } from '../shared/types'
+import { DEMO_ACCOUNTS, DEPARTMENTS } from '../shared/constants.js'
+import { demoComplaints } from '../shared/demoData.js'
+import type { ComplaintUpdate, Role } from '../shared/types.js'
 
 function required(name: string): string {
   const value = process.env[name]?.trim()

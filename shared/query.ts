@@ -1,4 +1,4 @@
-import type { Complaint, ComplaintListItem, ComplaintQuery, ListResponse } from './types'
+import type { Complaint, ComplaintListItem, ComplaintQuery, ListResponse } from './types.js'
 
 const SEVERITY_RANK = { low: 1, medium: 2, high: 3, critical: 4 }
 const STATUS_RANK = { pending: 1, in_progress: 2, resolved: 3 }

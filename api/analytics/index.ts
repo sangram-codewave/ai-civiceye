@@ -1,6 +1,6 @@
-import { requireAdmin } from '../../server/auth'
-import { buildCategoryStats, buildDepartmentStats, buildOverview, buildTrends } from '../../server/analytics'
-import { HttpError, assertMethod, qstring, wrap } from '../../server/http'
+import { requireAdmin } from '../../server/auth.js'
+import { buildCategoryStats, buildDepartmentStats, buildOverview, buildTrends } from '../../server/analytics.js'
+import { HttpError, assertMethod, qstring, wrap } from '../../server/http.js'
 
 const views = {
   overview: buildOverview,

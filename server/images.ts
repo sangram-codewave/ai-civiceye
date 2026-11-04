@@ -1,6 +1,6 @@
-import { getServerEnv } from './env'
-import { HttpError } from './http'
-import { getAdmin } from './supabase'
+import { getServerEnv } from './env.js'
+import { HttpError } from './http.js'
+import { getAdmin } from './supabase.js'
 
 const MAX_BYTES = 4 * 1024 * 1024
 

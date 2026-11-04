@@ -1,6 +1,6 @@
-import { requireUser } from '../../server/auth'
-import { createComplaint, listComplaints } from '../../server/complaints'
-import { assertMethod, readBody, wrap } from '../../server/http'
+import { requireUser } from '../../server/auth.js'
+import { createComplaint, listComplaints } from '../../server/complaints.js'
+import { assertMethod, readBody, wrap } from '../../server/http.js'
 
 export default wrap('complaints', async (req, res) => {
   assertMethod(req, ['GET', 'POST'])

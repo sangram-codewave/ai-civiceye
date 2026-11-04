@@ -1,7 +1,7 @@
-import { requireAdmin } from '../../../server/auth'
-import { updateComplaintStatus } from '../../../server/complaints'
-import { assertMethod, qstring, readBody, wrap } from '../../../server/http'
-import { parseId } from '../../../server/schemas'
+import { requireAdmin } from '../../../server/auth.js'
+import { updateComplaintStatus } from '../../../server/complaints.js'
+import { assertMethod, qstring, readBody, wrap } from '../../../server/http.js'
+import { parseId } from '../../../server/schemas.js'
 
 export default wrap('update-status', async (req, res) => {
   assertMethod(req, ['POST'])

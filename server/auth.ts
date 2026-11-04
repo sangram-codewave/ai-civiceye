@@ -1,7 +1,7 @@
-import type { Role } from '../shared/types'
-import { isSupabaseConfigured } from './env'
-import { header, HttpError, type Req } from './http'
-import { getAdmin } from './supabase'
+import type { Role } from '../shared/types.js'
+import { isSupabaseConfigured } from './env.js'
+import { header, HttpError, type Req } from './http.js'
+import { getAdmin } from './supabase.js'
 
 export type AuthUser = {
   id: string

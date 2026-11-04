@@ -1,10 +1,10 @@
-import { requireUser } from '../../server/auth'
-import { isGeminiConfigured, isSupabaseConfigured } from '../../server/env'
-import { analyseComplaintImage } from '../../server/gemini'
-import { assertMethod, clientKey, HttpError, readBody, wrap } from '../../server/http'
-import { decodeImage } from '../../server/images'
-import { assertRateLimit } from '../../server/rateLimit'
-import { analyseSchema, parseBody } from '../../server/schemas'
+import { requireUser } from '../../server/auth.js'
+import { isGeminiConfigured, isSupabaseConfigured } from '../../server/env.js'
+import { analyseComplaintImage } from '../../server/gemini.js'
+import { assertMethod, clientKey, HttpError, readBody, wrap } from '../../server/http.js'
+import { decodeImage } from '../../server/images.js'
+import { assertRateLimit } from '../../server/rateLimit.js'
+import { analyseSchema, parseBody } from '../../server/schemas.js'
 
 export default wrap('analyse-image', async (req, res) => {
   assertMethod(req, ['POST'])

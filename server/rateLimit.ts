@@ -1,4 +1,4 @@
-import { HttpError } from './http'
+import { HttpError } from './http.js'
 
 const buckets = new Map<string, number[]>()
 

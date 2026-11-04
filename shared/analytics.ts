@@ -1,4 +1,4 @@
-import { CATEGORY_VALUES, categoryLabel } from './constants'
+import { CATEGORY_VALUES, categoryLabel } from './constants.js'
 import type {
   CategoryStat,
   ComplaintListItem,
@@ -6,7 +6,7 @@ import type {
   DepartmentWorkload,
   Overview,
   TrendPoint,
-} from './types'
+} from './types.js'
 
 type AnalyticsRow = Pick<
   ComplaintListItem,

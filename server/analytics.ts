@@ -1,8 +1,8 @@
-import { categoryStats, departmentWorkload, monthlyTrends, severityStats, summarize } from '../shared/analytics'
-import type { Category, ComplaintStatus, Severity } from '../shared/types'
-import { listDepartments, listOfficers } from './complaints'
-import { raiseDbError } from './mappers'
-import { getAdmin } from './supabase'
+import { categoryStats, departmentWorkload, monthlyTrends, severityStats, summarize } from '../shared/analytics.js'
+import type { Category, ComplaintStatus, Severity } from '../shared/types.js'
+import { listDepartments, listOfficers } from './complaints.js'
+import { raiseDbError } from './mappers.js'
+import { getAdmin } from './supabase.js'
 
 export async function analyticsRows() {
   const { data, error } = await getAdmin()

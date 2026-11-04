@@ -1,6 +1,6 @@
-import { requireUser } from '../server/auth'
-import { assertMethod, HttpError, qstring, wrap } from '../server/http'
-import { assertRateLimit } from '../server/rateLimit'
+import { requireUser } from '../server/auth.js'
+import { assertMethod, HttpError, qstring, wrap } from '../server/http.js'
+import { assertRateLimit } from '../server/rateLimit.js'
 
 export default wrap('geocode', async (req, res) => {
   assertMethod(req, ['GET'])

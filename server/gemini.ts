@@ -1,7 +1,7 @@
-import { departmentForCategory, normalizeCategory, resolveDepartmentName } from '../shared/constants'
-import type { AiAnalysis, ResolutionAiResult } from '../shared/types'
-import { getServerEnv, isGeminiConfigured } from './env'
-import { HttpError } from './http'
+import { departmentForCategory, normalizeCategory, resolveDepartmentName } from '../shared/constants.js'
+import type { AiAnalysis, ResolutionAiResult } from '../shared/types.js'
+import { getServerEnv, isGeminiConfigured } from './env.js'
+import { HttpError } from './http.js'
 
 const analysisResponseSchema = {
   type: 'object',

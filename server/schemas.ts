@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { CATEGORY_VALUES, SEVERITY_VALUES, STATUS_VALUES } from '../shared/constants'
-import { HttpError } from './http'
+import { CATEGORY_VALUES, SEVERITY_VALUES, STATUS_VALUES } from '../shared/constants.js'
+import { HttpError } from './http.js'
 
 export const categorySchema = z.enum(CATEGORY_VALUES)
 export const severitySchema = z.enum(SEVERITY_VALUES)

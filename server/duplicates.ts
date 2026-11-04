@@ -1,6 +1,6 @@
-import { cosineSimilarity, duplicateScore, haversineMeters, jaccardSimilarity } from '../shared/geo'
-import { embedText } from './gemini'
-import { getAdmin } from './supabase'
+import { cosineSimilarity, duplicateScore, haversineMeters, jaccardSimilarity } from '../shared/geo.js'
+import { embedText } from './gemini.js'
+import { getAdmin } from './supabase.js'
 
 export async function detectDuplicates(complaintId: string): Promise<number> {
   const supabase = getAdmin()

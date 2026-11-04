@@ -1,5 +1,5 @@
-import { DEMO_ACCOUNTS, categoryLabel, departmentById, severityLabel } from './constants'
-import type { Complaint, ComplaintStatus, ComplaintUpdate } from './types'
+import { DEMO_ACCOUNTS, categoryLabel, departmentById, severityLabel } from './constants.js'
+import type { Complaint, ComplaintStatus, ComplaintUpdate } from './types.js'
 
 type Draft = {
   n: number
