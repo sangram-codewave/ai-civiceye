@@ -29,12 +29,13 @@ export function useHealth() {
 }
 
 export function useComplaints(filters: ComplaintQuery) {
-  const { demoMode, user } = useAuth()
+  const { demoMode, previewMode, user } = useAuth()
+  const sampleData = demoMode || previewMode
   return useQuery({
-    queryKey: ['complaints', filters, demoMode, user?.id, user?.role],
+    queryKey: ['complaints', filters, sampleData, user?.id, user?.role],
     enabled: Boolean(user),
     queryFn: async (): Promise<ListResponse> => {
-      if (demoMode) {
+      if (sampleData) {
         return queryComplaints(demoComplaints, {
           ...filters,
           citizenId: user?.role === 'admin' ? undefined : user?.id,
@@ -47,13 +48,14 @@ export function useComplaints(filters: ComplaintQuery) {
 }
 
 export function useComplaint(id: string | undefined) {
-  const { demoMode, user } = useAuth()
+  const { demoMode, previewMode, user } = useAuth()
+  const sampleData = demoMode || previewMode
   return useQuery({
-    queryKey: ['complaint', id, demoMode, user?.role],
+    queryKey: ['complaint', id, sampleData, user?.role],
     enabled: Boolean(user && id),
     queryFn: async (): Promise<ComplaintDetailResponse> => {
       if (!id) throw new Error('Complaint not found.')
-      if (demoMode) {
+      if (sampleData) {
         const complaint = demoComplaints.find((item) => item.id === id)
         if (!complaint || (user?.role !== 'admin' && complaint.citizen_id !== user?.id)) {
           throw new Error('Complaint not found.')
@@ -105,24 +107,26 @@ function demoOverview(): OverviewResponse {
 }
 
 export function useOverview() {
-  const { demoMode, user } = useAuth()
+  const { demoMode, previewMode, user } = useAuth()
+  const sampleData = demoMode || previewMode
   return useQuery({
-    queryKey: ['analytics', 'overview', demoMode],
+    queryKey: ['analytics', 'overview', sampleData],
     enabled: user?.role === 'admin',
     queryFn: async () => {
-      if (demoMode) return demoOverview()
+      if (sampleData) return demoOverview()
       return (await api.get<OverviewResponse>('/api/analytics', { params: { view: 'overview' } })).data
     },
   })
 }
 
 export function useCategoryStats() {
-  const { demoMode, user } = useAuth()
+  const { demoMode, previewMode, user } = useAuth()
+  const sampleData = demoMode || previewMode
   return useQuery({
-    queryKey: ['analytics', 'categories', demoMode],
+    queryKey: ['analytics', 'categories', sampleData],
     enabled: user?.role === 'admin',
     queryFn: async () => {
-      if (demoMode) {
+      if (sampleData) {
         return { categories: categoryStats(demoComplaints), severities: severityStats(demoComplaints) }
       }
       return (await api.get<{ categories: CategoryStat[]; severities: { severity: string; count: number }[] }>(
@@ -134,24 +138,26 @@ export function useCategoryStats() {
 }
 
 export function useTrends() {
-  const { demoMode, user } = useAuth()
+  const { demoMode, previewMode, user } = useAuth()
+  const sampleData = demoMode || previewMode
   return useQuery({
-    queryKey: ['analytics', 'trends', demoMode],
+    queryKey: ['analytics', 'trends', sampleData],
     enabled: user?.role === 'admin',
     queryFn: async () => {
-      if (demoMode) return { trends: monthlyTrends(demoComplaints) }
+      if (sampleData) return { trends: monthlyTrends(demoComplaints) }
       return (await api.get<{ trends: TrendPoint[] }>('/api/analytics', { params: { view: 'trends' } })).data
     },
   })
 }
 
 export function useDepartmentStats() {
-  const { demoMode, user } = useAuth()
+  const { demoMode, previewMode, user } = useAuth()
+  const sampleData = demoMode || previewMode
   return useQuery({
-    queryKey: ['analytics', 'departments', demoMode],
+    queryKey: ['analytics', 'departments', sampleData],
     enabled: user?.role === 'admin',
     queryFn: async () => {
-      if (demoMode) {
+      if (sampleData) {
         return {
           departments: departmentWorkload(
             DEPARTMENTS.map((department) => ({ id: department.id, name: department.name })),

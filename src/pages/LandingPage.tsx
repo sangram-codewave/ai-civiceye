@@ -43,7 +43,7 @@ export function LandingPage() {
         <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Example triage</p>
           <div className="mt-4 rounded-2xl bg-navy p-5 text-white">
-            <p className="text-sm text-slate-300">CE-2026-00001 · Patia Square</p>
+            <p className="text-sm text-slate-300">CE-2026-00001 · Whitefield circle</p>
             <p className="mt-2 text-xl font-bold">Deep pothole near the junction</p>
             <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
               <div className="rounded-xl bg-white/10 px-2 py-3">
@@ -113,7 +113,7 @@ export function LandingPage() {
         <p className="mt-2 text-sm text-slate-500">
           {live
             ? 'Counts below are complaint totals stored in the connected database. They do not include names or photos.'
-            : 'These figures come from the bundled Bhubaneswar sample. They are not a live city feed.'}
+            : 'These figures come from the bundled Bengaluru sample. They are not a live city feed.'}
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <Stat label="Complaints" value={live ? live.complaints : sample.total} />
@@ -123,7 +123,7 @@ export function LandingPage() {
       </section>
 
       <footer className="border-t border-slate-200 px-4 py-8 text-center text-sm text-slate-500">
-        AI CivicEye · Bhubaneswar sample city · OpenStreetMap
+        AI CivicEye · Bengaluru sample city · OpenStreetMap
       </footer>
     </div>
   )

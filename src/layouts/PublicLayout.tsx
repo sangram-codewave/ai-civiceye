@@ -1,24 +1,34 @@
-import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ServiceBanner } from '@/components/ServiceBanner'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
 
 export function PublicLayout() {
-  const { user } = useAuth()
+  const { user, enterDemo } = useAuth()
+  const navigate = useNavigate()
+
+  function openAdminDemo() {
+    enterDemo('admin')
+    navigate('/admin')
+  }
+
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-3 sm:px-6">
           <Link to="/" className="text-lg font-extrabold tracking-tight text-navy">
             AI CivicEye
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto">
             {user ? (
               <Button asChild>
                 <Link to={user.role === 'admin' ? '/admin' : '/app'}>Open dashboard</Link>
               </Button>
             ) : (
               <>
+                <Button type="button" variant="outline" onClick={openAdminDemo}>
+                  Admin demo
+                </Button>
                 <Button asChild variant="ghost">
                   <Link to="/login">Sign in</Link>
                 </Button>

@@ -187,7 +187,7 @@ export function ReportPage() {
                 </Button>
               </div>
               <Field label="Address (optional)" error={form.formState.errors.address?.message}>
-                <Input {...form.register('address')} placeholder="Patia Square, Bhubaneswar" />
+                <Input {...form.register('address')} placeholder="Whitefield circle, Bengaluru" />
               </Field>
               <Button
                 type="button"

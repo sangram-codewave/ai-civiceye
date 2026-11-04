@@ -11,7 +11,7 @@ The app is one Vite frontend and one set of Vercel serverless functions. Postgre
 - A free [Google AI Studio](https://aistudio.google.com/) Gemini API key
 - A [GitHub](https://github.com/) repository and a [Vercel](https://vercel.com/signup) account when you are ready to deploy
 
-You can run the interface without those accounts. That mode is labelled **Demo mode** and uses bundled sample complaints from Bhubaneswar. It does not save data and it does not invent an AI classification.
+You can run the interface without those accounts. That mode is labelled **Demo mode** and uses bundled sample complaints from Bengaluru. It does not save data and it does not invent an AI classification.
 
 ## 2. Local installation
 
@@ -31,13 +31,12 @@ Leave the values blank to use demo mode. Fill them in when Supabase and Gemini a
 4. In `.env`:
 
 ```bash
-VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-VITE_SUPABASE_ANON_KEY=your_anon_key
 SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+SUPABASE_ANON_KEY=your_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
-`SUPABASE_URL` should be the same project URL. Do not prefix the service role key with `VITE_`.
+`SUPABASE_URL` is shared by the browser and the API. `SUPABASE_ANON_KEY` is the public anon key, protected by row level security. Vite inlines only those two values. Do not expose the service role key to the browser, and do not prefix these names with `VITE_` — Vercel rejects visibility "secret" for that prefix.
 
 ## 4. Database migration
 
@@ -86,7 +85,7 @@ The script prints the emails and does not print the passwords.
 
 Officers are assignment records. They do not get the admin desk. Set `DEMO_OFFICER_PASSWORD` if you want the sample complaints assigned to them.
 
-The seed inserts 22 complaints around Patia, Jaydev Vihar, Saheed Nagar, Khandagiri, Rasulgarh, and Chandrasekharpur. Running it again skips reference numbers that already exist.
+The seed inserts 22 complaints around Whitefield, Indiranagar, Koramangala, Jayanagar, Hebbal, and Malleshwaram. Running it again skips reference numbers that already exist.
 
 ## 7. Gemini API key
 
@@ -153,15 +152,14 @@ git push -u origin main
 4. Files in `api/` become serverless functions. Dynamic complaint routes use `api/complaints/[id].ts`. Shared server code stays in `server/`, outside `api/`, because the Vercel Hobby plan allows only 12 functions and counts every file under `api/`.
 5. Add the environment variables from the next section, then deploy.
 
-`VITE_` values are baked in at build time. Set them before the first production build, and redeploy after changing them.
+`SUPABASE_URL` and `SUPABASE_ANON_KEY` are inlined into the browser bundle at build time. Set them before the first production build, and redeploy after changing them.
 
 ## 11. Environment variables
 
 | Name | Where | Purpose |
 | --- | --- | --- |
-| `VITE_SUPABASE_URL` | Browser and build | Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Browser and build | Supabase anon key, protected by RLS |
-| `SUPABASE_URL` | Server | Same project URL for the API |
+| `SUPABASE_URL` | Browser and server | Supabase project URL. Inlined into the client at build time |
+| `SUPABASE_ANON_KEY` | Browser and build | Supabase anon key, protected by RLS. Inlined into the client at build time |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only | Admin database and storage writes after the API checks the user |
 | `GEMINI_API_KEY` | Server only | Gemini vision, summary, and embeddings |
 | `GEMINI_MODEL` | Server only | Defaults to `gemini-2.5-flash` |
@@ -169,7 +167,7 @@ git push -u origin main
 | `DEMO_ADMIN_PASSWORD` | Seed script only | Password for the demo administrator |
 | `DEMO_OFFICER_PASSWORD` | Seed script only | Optional password shared by the four demo officers |
 
-Never put `SUPABASE_SERVICE_ROLE_KEY` or `GEMINI_API_KEY` in a `VITE_` variable. The health check lists the names of missing server variables, not their values.
+Never put `SUPABASE_SERVICE_ROLE_KEY` or `GEMINI_API_KEY` in the client bundle. Vite defines only `SUPABASE_URL` and `SUPABASE_ANON_KEY` for the browser. The health check lists the names of missing server variables, not their values.
 
 ## 12. Production testing
 

@@ -61,7 +61,7 @@ export const DEMO_ACCOUNTS = {
   ],
 } as const
 
-export const BHUBANESWAR = { latitude: 20.2961, longitude: 85.8245 }
+export const BENGALURU = { latitude: 12.9716, longitude: 77.5946 }
 
 const CATEGORY_LABELS: Record<Category, string> = {
   pothole: 'Pothole',

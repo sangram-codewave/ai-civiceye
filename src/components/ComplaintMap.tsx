@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import { Link } from 'react-router-dom'
-import { BHUBANESWAR, categoryLabel, severityLabel, statusLabel } from '@shared/constants'
+import { BENGALURU, categoryLabel, severityLabel, statusLabel } from '@shared/constants'
 import type { ComplaintListItem, Severity } from '@shared/types'
 
 const colors: Record<Severity, string> = {
@@ -41,7 +41,7 @@ export function ComplaintMap({
   useEffect(() => setReady(true), [])
   const center = complaints.length === 1
     ? ([complaints[0]!.latitude, complaints[0]!.longitude] as [number, number])
-    : ([BHUBANESWAR.latitude, BHUBANESWAR.longitude] as [number, number])
+    : ([BENGALURU.latitude, BENGALURU.longitude] as [number, number])
 
   if (!ready) return <div style={{ height }} className="rounded-2xl bg-slate-100" />
 

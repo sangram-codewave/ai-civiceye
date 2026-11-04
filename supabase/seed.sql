@@ -1,5 +1,5 @@
 -- Departments are inserted by supabase/migrations/001_init.sql.
--- Demo citizens, the administrator, officers, and Bhubaneswar complaints
+-- Demo citizens, the administrator, officers, and Bengaluru complaints
 -- are created by the seed script so passwords never live in SQL:
 --
 --   npm run seed

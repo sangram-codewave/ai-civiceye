@@ -36,10 +36,12 @@ type AuthContextValue = {
   user: SessionUser | null
   loading: boolean
   demoMode: boolean
+  /** Local preview session while Supabase is configured. Sample complaints are shown; real sign-in is unchanged. */
+  previewMode: boolean
   signIn: (email: string, password: string) => Promise<void>
   signUp: (input: { fullName: string; email: string; phone?: string; password: string }) => Promise<{ needsEmailConfirmation: boolean }>
   signOut: () => Promise<void>
-  enterDemo: (role: 'citizen' | 'admin') => void
+  enterDemo: (role: 'citizen' | 'admin', profile?: { fullName: string; email: string; phone?: string }) => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -67,6 +69,21 @@ async function loadProfile(userId: string, fallbackEmail: string): Promise<Sessi
   throw new Error('Your profile is not ready yet. Try signing in again.')
 }
 
+function readStoredSession(): SessionUser | null {
+  const saved = sessionStorage.getItem(DEMO_KEY)
+  if (!saved) return null
+  try {
+    return JSON.parse(saved) as SessionUser
+  } catch {
+    sessionStorage.removeItem(DEMO_KEY)
+    return null
+  }
+}
+
+function isPreviewUser(user: SessionUser | null): boolean {
+  return user?.id === demoUsers.admin.id || user?.id === demoUsers.citizen.id
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const demoMode = !isSupabaseConfigured()
   const [user, setUser] = useState<SessionUser | null>(null)
@@ -74,14 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (demoMode || !supabase) {
-      const saved = sessionStorage.getItem(DEMO_KEY)
-      if (saved) {
-        try {
-          setUser(JSON.parse(saved) as SessionUser)
-        } catch {
-          sessionStorage.removeItem(DEMO_KEY)
-        }
-      }
+      setUser(readStoredSession())
       setApiToken(null)
       setLoading(false)
       return
@@ -98,7 +108,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     client.auth.getSession().then(async ({ data }) => {
       try {
-        if (data.session) await hydrate(data.session.access_token, data.session.user.id, data.session.user.email ?? '')
+        if (data.session) {
+          sessionStorage.removeItem(DEMO_KEY)
+          await hydrate(data.session.access_token, data.session.user.id, data.session.user.email ?? '')
+        } else if (active) {
+          setUser(readStoredSession())
+          setApiToken(null)
+        }
       } catch (error) {
         console.error(error)
         await client.auth.signOut()
@@ -110,10 +126,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const { data: subscription } = client.auth.onAuthStateChange((_event, session) => {
       if (!session) {
-        setUser(null)
+        setUser(readStoredSession())
         setApiToken(null)
         return
       }
+      sessionStorage.removeItem(DEMO_KEY)
       void hydrate(session.access_token, session.user.id, session.user.email ?? '').catch(async (error) => {
         console.error(error)
         await client.auth.signOut()
@@ -122,6 +139,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     })
 
     const onUnauthorized = () => {
+      if (readStoredSession()) return
       void client.auth.signOut()
       setUser(null)
       setApiToken(null)
@@ -134,15 +152,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [demoMode])
 
+  const previewMode = !demoMode && isPreviewUser(user)
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
       loading,
       demoMode,
+      previewMode,
       async signIn(email, password) {
         if (!supabase) throw new Error('Supabase is not configured.')
         const { data, error } = await supabase.auth.signInWithPassword({ email, password })
         if (error || !data.session) throw new Error(error?.message === 'Invalid login credentials' ? 'Email or password is incorrect.' : error?.message || 'Sign in failed.')
+        sessionStorage.removeItem(DEMO_KEY)
         const profile = await loadProfile(data.session.user.id, data.session.user.email ?? email)
         setApiToken(data.session.access_token)
         setUser(profile)
@@ -156,6 +178,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         })
         if (error) throw new Error(error.message)
         if (!data.session || !data.user) return { needsEmailConfirmation: true }
+        sessionStorage.removeItem(DEMO_KEY)
         const profile = await loadProfile(data.user.id, data.user.email ?? input.email)
         setApiToken(data.session.access_token)
         setUser(profile)
@@ -167,15 +190,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setApiToken(null)
         if (supabase) await supabase.auth.signOut()
       },
-      enterDemo(role) {
-        if (!demoMode) return
-        const next = demoUsers[role]
+      enterDemo(role, profile) {
+        const base = demoUsers[role]
+        const next: SessionUser = profile && role === 'citizen'
+          ? {
+              ...base,
+              email: profile.email.trim(),
+              fullName: profile.fullName.trim(),
+              phone: profile.phone?.trim() || null,
+            }
+          : base
         sessionStorage.setItem(DEMO_KEY, JSON.stringify(next))
         setApiToken(null)
         setUser(next)
       },
     }),
-    [demoMode, loading, user],
+    [demoMode, loading, previewMode, user],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
