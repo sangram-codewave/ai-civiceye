@@ -206,9 +206,6 @@ After deploy:
 | GET, PATCH | `/api/complaints/:id` | Owner or administrator; updates require an administrator |
 | POST | `/api/complaints/:id/assign` | Administrator |
 | POST | `/api/complaints/:id/update-status` | Administrator |
-| GET | `/api/analytics/overview` | Administrator |
-| GET | `/api/analytics/categories` | Administrator |
-| GET | `/api/analytics/trends` | Administrator |
-| GET | `/api/analytics/departments` | Administrator |
+| GET | `/api/analytics?view=overview\|categories\|trends\|departments` | Administrator |
 
 Address lookup uses OpenStreetMap Nominatim with a named User-Agent. Submitting a complaint still works if that lookup fails.

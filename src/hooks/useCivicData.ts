@@ -111,7 +111,7 @@ export function useOverview() {
     enabled: user?.role === 'admin',
     queryFn: async () => {
       if (demoMode) return demoOverview()
-      return (await api.get<OverviewResponse>('/api/analytics/overview')).data
+      return (await api.get<OverviewResponse>('/api/analytics', { params: { view: 'overview' } })).data
     },
   })
 }
@@ -126,7 +126,8 @@ export function useCategoryStats() {
         return { categories: categoryStats(demoComplaints), severities: severityStats(demoComplaints) }
       }
       return (await api.get<{ categories: CategoryStat[]; severities: { severity: string; count: number }[] }>(
-        '/api/analytics/categories',
+        '/api/analytics',
+        { params: { view: 'categories' } },
       )).data
     },
   })
@@ -139,7 +140,7 @@ export function useTrends() {
     enabled: user?.role === 'admin',
     queryFn: async () => {
       if (demoMode) return { trends: monthlyTrends(demoComplaints) }
-      return (await api.get<{ trends: TrendPoint[] }>('/api/analytics/trends')).data
+      return (await api.get<{ trends: TrendPoint[] }>('/api/analytics', { params: { view: 'trends' } })).data
     },
   })
 }
@@ -158,7 +159,7 @@ export function useDepartmentStats() {
           ),
         }
       }
-      return (await api.get<{ departments: DepartmentWorkload[] }>('/api/analytics/departments')).data
+      return (await api.get<{ departments: DepartmentWorkload[] }>('/api/analytics', { params: { view: 'departments' } })).data
     },
   })
 }

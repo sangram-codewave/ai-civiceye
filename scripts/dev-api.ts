@@ -4,10 +4,7 @@ import summary from '../api/ai/generate-summary'
 import analyse from '../api/ai/analyse-image'
 import duplicates from '../api/ai/detect-duplicates'
 import verify from '../api/ai/verify-resolution'
-import categories from '../api/analytics/categories'
-import departments from '../api/analytics/departments'
-import overview from '../api/analytics/overview'
-import trends from '../api/analytics/trends'
+import analytics from '../api/analytics/index'
 import assign from '../api/complaints/[id]/assign'
 import updateStatus from '../api/complaints/[id]/update-status'
 import complaintById from '../api/complaints/[id]'
@@ -25,10 +22,7 @@ const routes: { pattern: RegExp; keys?: string[]; handler: Handler }[] = [
   { pattern: /^\/api\/ai\/detect-duplicates$/, handler: duplicates },
   { pattern: /^\/api\/ai\/generate-summary$/, handler: summary },
   { pattern: /^\/api\/ai\/verify-resolution$/, handler: verify },
-  { pattern: /^\/api\/analytics\/overview$/, handler: overview },
-  { pattern: /^\/api\/analytics\/categories$/, handler: categories },
-  { pattern: /^\/api\/analytics\/trends$/, handler: trends },
-  { pattern: /^\/api\/analytics\/departments$/, handler: departments },
+  { pattern: /^\/api\/analytics$/, handler: analytics },
   { pattern: /^\/api\/complaints\/([^/]+)\/assign$/, keys: ['id'], handler: assign },
   { pattern: /^\/api\/complaints\/([^/]+)\/update-status$/, keys: ['id'], handler: updateStatus },
   { pattern: /^\/api\/complaints\/([^/]+)$/, keys: ['id'], handler: complaintById },
