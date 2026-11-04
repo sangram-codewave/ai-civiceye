@@ -1,0 +1,14 @@
+-- Departments are inserted by supabase/migrations/001_init.sql.
+-- Demo citizens, the administrator, officers, and Bhubaneswar complaints
+-- are created by the seed script so passwords never live in SQL:
+--
+--   npm run seed
+--
+-- Required environment variables:
+--   SUPABASE_URL
+--   SUPABASE_SERVICE_ROLE_KEY
+--   DEMO_CITIZEN_PASSWORD
+--   DEMO_ADMIN_PASSWORD
+--
+-- Optional:
+--   DEMO_OFFICER_PASSWORD
