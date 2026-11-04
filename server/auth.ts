@@ -1,4 +1,4 @@
-import type { Role } from '../../shared/types'
+import type { Role } from '../shared/types'
 import { isSupabaseConfigured } from './env'
 import { header, HttpError, type Req } from './http'
 import { getAdmin } from './supabase'

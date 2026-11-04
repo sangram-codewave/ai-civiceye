@@ -1,5 +1,5 @@
-import { departmentForCategory, resolveDepartmentName, severityLabel } from '../../shared/constants'
-import type { AiAnalysis, Complaint, ComplaintDetailResponse, ListResponse, OfficerOption } from '../../shared/types'
+import { departmentForCategory, resolveDepartmentName, severityLabel } from '../shared/constants'
+import type { AiAnalysis, Complaint, ComplaintDetailResponse, ListResponse, OfficerOption } from '../shared/types'
 import type { AuthUser } from './auth'
 import { detectDuplicates } from './duplicates'
 import { HttpError, qstring, type Req } from './http'

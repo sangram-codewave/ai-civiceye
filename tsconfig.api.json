@@ -15,5 +15,5 @@
     "esModuleInterop": true,
     "isolatedModules": true
   },
-  "include": ["api", "shared", "scripts"]
+  "include": ["api", "server", "shared", "scripts"]
 }

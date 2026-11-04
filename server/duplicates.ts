@@ -1,4 +1,4 @@
-import { cosineSimilarity, duplicateScore, haversineMeters, jaccardSimilarity } from '../../shared/geo'
+import { cosineSimilarity, duplicateScore, haversineMeters, jaccardSimilarity } from '../shared/geo'
 import { embedText } from './gemini'
 import { getAdmin } from './supabase'
 

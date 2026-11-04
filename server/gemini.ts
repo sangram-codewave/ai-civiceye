@@ -1,5 +1,5 @@
-import { departmentForCategory, normalizeCategory, resolveDepartmentName } from '../../shared/constants'
-import type { AiAnalysis, ResolutionAiResult } from '../../shared/types'
+import { departmentForCategory, normalizeCategory, resolveDepartmentName } from '../shared/constants'
+import type { AiAnalysis, ResolutionAiResult } from '../shared/types'
 import { getServerEnv, isGeminiConfigured } from './env'
 import { HttpError } from './http'
 

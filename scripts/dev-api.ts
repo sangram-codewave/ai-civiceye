@@ -11,7 +11,7 @@ import complaintById from '../api/complaints/[id]'
 import complaints from '../api/complaints/index'
 import geocode from '../api/geocode'
 import health from '../api/health'
-import type { Req, Res } from '../api/lib/http'
+import type { Req, Res } from '../server/http'
 
 type Handler = (req: Req, res: Res) => Promise<void> | void
 

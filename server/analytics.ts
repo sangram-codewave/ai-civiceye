@@ -1,5 +1,5 @@
-import { categoryStats, departmentWorkload, monthlyTrends, severityStats, summarize } from '../../shared/analytics'
-import type { Category, ComplaintStatus, Severity } from '../../shared/types'
+import { categoryStats, departmentWorkload, monthlyTrends, severityStats, summarize } from '../shared/analytics'
+import type { Category, ComplaintStatus, Severity } from '../shared/types'
 import { listDepartments, listOfficers } from './complaints'
 import { raiseDbError } from './mappers'
 import { getAdmin } from './supabase'

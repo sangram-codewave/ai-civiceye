@@ -1,9 +1,9 @@
-import { requireUser } from '../lib/auth'
-import { detectDuplicates } from '../lib/duplicates'
-import { assertMethod, HttpError, readBody, wrap } from '../lib/http'
-import { assertRateLimit } from '../lib/rateLimit'
-import { duplicateSchema, parseBody } from '../lib/schemas'
-import { getAdmin } from '../lib/supabase'
+import { requireUser } from '../../server/auth'
+import { detectDuplicates } from '../../server/duplicates'
+import { assertMethod, HttpError, readBody, wrap } from '../../server/http'
+import { assertRateLimit } from '../../server/rateLimit'
+import { duplicateSchema, parseBody } from '../../server/schemas'
+import { getAdmin } from '../../server/supabase'
 
 export default wrap('detect-duplicates', async (req, res) => {
   assertMethod(req, ['POST'])

@@ -1,11 +1,11 @@
-import { requireAdmin } from '../lib/auth'
-import { isGeminiConfigured } from '../lib/env'
-import { summariseComplaints } from '../lib/gemini'
-import { assertMethod, HttpError, readBody, wrap } from '../lib/http'
-import { raiseDbError } from '../lib/mappers'
-import { assertRateLimit } from '../lib/rateLimit'
-import { parseBody, summarySchema } from '../lib/schemas'
-import { getAdmin } from '../lib/supabase'
+import { requireAdmin } from '../../server/auth'
+import { isGeminiConfigured } from '../../server/env'
+import { summariseComplaints } from '../../server/gemini'
+import { assertMethod, HttpError, readBody, wrap } from '../../server/http'
+import { raiseDbError } from '../../server/mappers'
+import { assertRateLimit } from '../../server/rateLimit'
+import { parseBody, summarySchema } from '../../server/schemas'
+import { getAdmin } from '../../server/supabase'
 
 export default wrap('generate-summary', async (req, res) => {
   assertMethod(req, ['POST'])

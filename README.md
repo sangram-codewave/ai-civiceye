@@ -150,7 +150,7 @@ git push -u origin main
 1. Import the GitHub repository in Vercel.
 2. If the repository root is this folder, leave the project root as `.`. If you pushed a parent folder, set the root directory to `ai-civiceye`.
 3. Framework preset can stay unset. [vercel.json](vercel.json) builds Vite into `dist` and rewrites non-API paths to `index.html`.
-4. Files in `api/` become serverless functions. Dynamic complaint routes use `api/complaints/[id].ts`.
+4. Files in `api/` become serverless functions. Dynamic complaint routes use `api/complaints/[id].ts`. Shared server code stays in `server/`, outside `api/`, because the Vercel Hobby plan allows only 12 functions and counts every file under `api/`.
 5. Add the environment variables from the next section, then deploy.
 
 `VITE_` values are baked in at build time. Set them before the first production build, and redeploy after changing them.

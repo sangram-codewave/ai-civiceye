@@ -1,12 +1,12 @@
-import { requireAdmin } from '../lib/auth'
-import { isGeminiConfigured } from '../lib/env'
-import { compareRepairImages } from '../lib/gemini'
-import { assertMethod, HttpError, readBody, wrap } from '../lib/http'
-import { decodeImage, fetchStoredImage, uploadComplaintImage } from '../lib/images'
-import { raiseDbError } from '../lib/mappers'
-import { assertRateLimit } from '../lib/rateLimit'
-import { parseBody, verifySchema } from '../lib/schemas'
-import { getAdmin } from '../lib/supabase'
+import { requireAdmin } from '../../server/auth'
+import { isGeminiConfigured } from '../../server/env'
+import { compareRepairImages } from '../../server/gemini'
+import { assertMethod, HttpError, readBody, wrap } from '../../server/http'
+import { decodeImage, fetchStoredImage, uploadComplaintImage } from '../../server/images'
+import { raiseDbError } from '../../server/mappers'
+import { assertRateLimit } from '../../server/rateLimit'
+import { parseBody, verifySchema } from '../../server/schemas'
+import { getAdmin } from '../../server/supabase'
 
 export default wrap('verify-resolution', async (req, res) => {
   assertMethod(req, ['POST'])
